@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run build
+
+      - name: Verify build output
+        run: |
+          echo "Checking build output..."
+          ls -la dist/shortcut-for-special-characters/
+          echo "Files in dist:"
+          find dist -type f -name "*.js" -o -name "*.json" -o -name "*.css"
+
+      - name: Check file sizes
+        run: |
+          echo "File sizes:"
+          du -h dist/shortcut-for-special-characters/*
+
+      - name: Validate manifest.json
+        run: |
+          echo "Validating manifest.json..."
+          node -e "
+            const manifest = require('./dist/shortcut-for-special-characters/manifest.json');
+            const required = ['id', 'name', 'version', 'minAppVersion', 'description'];
+            const missing = required.filter(field => !manifest[field]);
+            if (missing.length > 0) {
+              console.error('Missing required fields:', missing);
+              process.exit(1);
+            }
+            console.log('Manifest validation passed');
+          "

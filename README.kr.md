@@ -21,9 +21,12 @@
 4. 플러그인 설치 및 활성화
 
 ### 수동 설치
-1. 최신 릴리스 파일 다운로드 (`main.js`, `manifest.json`, `styles.css`)
-2. 볼트의 `.obsidian/plugins/shortcut-for-special-characters/` 폴더에 복사
-3. Obsidian 재시작 후 **설정 → 커뮤니티 플러그인**에서 플러그인 활성화
+1. 최신 릴리스 파일 다운로드:
+   - **권장**: `shortcut-for-special-characters-{version}.zip` (완전한 패키지)
+   - **개별 파일**: `main.js`, `manifest.json`, `styles.css`
+2. zip 설치의 경우: 압축 해제 후 내용을 볼트의 `.obsidian/plugins/shortcut-for-special-characters/` 폴더에 복사
+3. 개별 파일의 경우: 볼트의 `.obsidian/plugins/shortcut-for-special-characters/` 폴더에 복사
+4. Obsidian 재시작 후 **설정 → 커뮤니티 플러그인**에서 플러그인 활성화
 
 ## 사용 방법
 

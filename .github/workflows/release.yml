@@ -1,0 +1,90 @@
+name: Release Plugin
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g., v1.0.0)'
+        required: true
+        type: string
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build plugin
+        run: npm run build
+
+      - name: Verify build output
+        run: |
+          echo "Checking build output..."
+          ls -la dist/shortcut-for-special-characters/
+          echo "Files in dist:"
+          find dist -type f -name "*.js" -o -name "*.json" -o -name "*.css" | head -10
+
+      - name: Create zip archive
+        run: |
+          VERSION="${{ github.ref_name || github.event.inputs.version }}"
+          VERSION=${VERSION#v}  # Remove 'v' prefix if present
+          ZIP_NAME="shortcut-for-special-characters-${VERSION}.zip"
+
+          echo "Creating zip: $ZIP_NAME"
+          cd dist/shortcut-for-special-characters/
+          zip -r "../../$ZIP_NAME" .
+          cd ../../
+
+          echo "Zip created: $ZIP_NAME"
+          ls -la "$ZIP_NAME"
+
+          # Store zip name for later use
+          echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name || github.event.inputs.version }}
+          name: Release ${{ github.ref_name || github.event.inputs.version }}
+          body: |
+            ## Shortcut for Special Characters Plugin
+
+            ### What's New
+            - Customizable special character shortcuts
+            - Easy management through settings UI
+            - Real-time command updates
+
+            ### Installation
+            1. Download the zip file below
+            2. Extract the contents to your vault's `.obsidian/plugins/shortcut-for-special-characters/` folder
+            3. Reload Obsidian and enable the plugin
+
+            ### Files Included
+            - `main.js` - Main plugin file
+            - `manifest.json` - Plugin manifest
+            - `styles.css` - Plugin styles (optional)
+
+            ### Manual Installation
+            If you prefer to install files individually, you can also download the individual files below.
+          files: |
+            ${{ env.ZIP_NAME }}
+            dist/shortcut-for-special-characters/main.js
+            dist/shortcut-for-special-characters/manifest.json
+            dist/shortcut-for-special-characters/styles.css
+          draft: false
+          prerelease: false

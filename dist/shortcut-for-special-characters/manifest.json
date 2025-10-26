@@ -1,0 +1,10 @@
+{
+	"id": "shortcut-for-special-characters",
+	"name": "Shortcut for special characters",
+	"version": "2.0",
+	"minAppVersion": "0.15.0",
+	"description": "Adds customizable shortcuts to insert special characters. Users can add their own characters and command names.",
+	"author": "Gemini",
+	"authorUrl": "https://gemini.google.com",
+	"isDesktopOnly": false
+}

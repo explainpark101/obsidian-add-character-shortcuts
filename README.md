@@ -21,9 +21,12 @@ A customizable Obsidian plugin that allows you to insert special characters with
 4. Install and enable the plugin
 
 ### Manual Installation
-1. Download the latest release files (`main.js`, `manifest.json`, `styles.css`)
-2. Copy them to your vault's `.obsidian/plugins/shortcut-for-special-characters/` folder
-3. Reload Obsidian and enable the plugin in **Settings → Community plugins**
+1. Download the latest release files:
+   - **Recommended**: `shortcut-for-special-characters-{version}.zip` (complete package)
+   - **Individual files**: `main.js`, `manifest.json`, `styles.css`
+2. For zip installation: Extract and copy contents to your vault's `.obsidian/plugins/shortcut-for-special-characters/` folder
+3. For individual files: Copy them to your vault's `.obsidian/plugins/shortcut-for-special-characters/` folder
+4. Reload Obsidian and enable the plugin in **Settings → Community plugins**
 
 ## Usage
 
