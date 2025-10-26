@@ -1,11 +1,10 @@
 {
-	"id": "sample-plugin",
-	"name": "Sample Plugin",
-	"version": "1.0.0",
+	"id": "shortcut-for-special-characters",
+	"name": "Shortcut for special characters",
+	"version": "2.0",
 	"minAppVersion": "0.15.0",
-	"description": "Demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"description": "Adds customizable shortcuts to insert special characters. Users can add their own characters and command names.",
+	"author": "Gemini",
+	"authorUrl": "https://gemini.google.com",
 	"isDesktopOnly": false
 }
